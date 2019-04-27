@@ -1,9 +1,9 @@
 import { ECS, JobSystem } from "@eix/core"
 import { Scene } from "../../scene"
 import { html, TemplateResult } from 'lit-html'
-import { spriteRenderingJob, CanvasRenderer } from "@eix/gfx"
+import { CanvasRenderer } from "@eix/gfx"
 import * as MainLoop from "mainloop.js"
-import { vec2 } from "gl-matrix";
+import { addRenderingJobs } from "./renderingJobs";
 
 /**
  * state for the menu
@@ -43,8 +43,16 @@ export class GameScene implements Scene<GameState, GameArgs> {
             document.getElementById('canvas') as HTMLCanvasElement)
         // add draw task
         jobSystem.addTask("draw", [ecs, canvasRenderer])
-        // add sprite renderer
-        jobSystem.tasks.draw.addJob("spriteRenderer", spriteRenderingJob)
+        // add rendering jobs
+        addRenderingJobs(jobSystem.tasks.draw)
+        // add update task
+        jobSystem.addTask("update", [ecs, canvasRenderer])
+        // add update jobs
+        // TODO: add the actual jobs
+        // add start task
+        jobSystem.addTask("start", [ecs])
+        // add start jobs
+        // TODO: add the actual jobs
         // start main loop
         MainLoop.setDraw(() => jobSystem.tasks.draw.runJobs(null)).start()
     }
