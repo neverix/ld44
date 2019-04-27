@@ -3,7 +3,8 @@ import { Scene } from "../../scene"
 import { html, TemplateResult } from 'lit-html'
 import { CanvasRenderer } from "@eix/gfx"
 import * as MainLoop from "mainloop.js"
-import { addRenderingJobs } from "./renderingJobs";
+import { addRenderingJobs } from "./renderingJobs"
+import { systems } from "./systems";
 
 /**
  * state for the menu
@@ -46,15 +47,19 @@ export class GameScene implements Scene<GameState, GameArgs> {
         // add rendering jobs
         addRenderingJobs(jobSystem.tasks.draw)
         // add update task
-        jobSystem.addTask("update", [ecs, canvasRenderer])
-        // add update jobs
-        // TODO: add the actual jobs
+        jobSystem.addTask("update", ecs)
         // add start task
-        jobSystem.addTask("start", [ecs])
-        // add start jobs
-        // TODO: add the actual jobs
+        jobSystem.addTask("start", ecs)
+        // add systems
+        systems.forEach(system => {
+            system(jobSystem)
+        })
+        // run the start task
+        jobSystem.tasks.start.runJobs(null)
         // start main loop
-        MainLoop.setDraw(() => jobSystem.tasks.draw.runJobs(null)).start()
+        MainLoop
+            .setUpdate((delta) => jobSystem.tasks.update.runJobs(delta))
+            .setDraw(() => jobSystem.tasks.draw.runJobs(null)).start()
     }
     stop() {
         // stop main loop
