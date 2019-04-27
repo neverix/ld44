@@ -32,24 +32,26 @@ export class GameScene implements Scene<GameState, GameArgs> {
         `
     }
     start(args: GameArgs, setState: (state: GameState) => void) {
+        // create ECS
         const ecs = new ECS()
+        // create job system
         const jobSystem = new JobSystem()
+        // update state
         setState({ ecs, jobSystem })
-        ecs.addEntity()
-        const nev = ecs.entities[0]
-        const image = new Image()
-        image.src = require("../../../../img/nev.png")
-        nev.sprite = { image }
-        nev.position = vec2.fromValues(0, 0)
-        nev.rotation = 0
-        nev.scale = vec2.fromValues(1, 1)
+        // create renderer
         const canvasRenderer = new CanvasRenderer(
             document.getElementById('canvas') as HTMLCanvasElement)
+        // add draw task
         jobSystem.addTask("draw", [ecs, canvasRenderer])
+        // add sprite renderer
         jobSystem.tasks.draw.addJob("spriteRenderer", spriteRenderingJob)
+        // start main loop
         MainLoop.setDraw(() => jobSystem.tasks.draw.runJobs(null)).start()
     }
-    stop() { }
+    stop() {
+        // stop main loop
+        MainLoop.stop()
+    }
     defaultArgs = {
         canvasWidth: 500,
         canvasHeight: 500
