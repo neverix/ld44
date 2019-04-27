@@ -34,6 +34,8 @@
   "dependencies": {
     "@eix/core": "git+https://github.com/eix-js/core.git",
     "@eix/gfx": "git+https://github.com/eix-js/gfx.git",
-    "@eix/ui": "git+https://github.com/eix-js/ui.git"
+    "@eix/ui": "git+https://github.com/eix-js/ui.git",
+    "@types/mainloop.js": "^1.0.5",
+    "mainloop.js": "^1.0.4"
   }
 }
