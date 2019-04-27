@@ -30,5 +30,10 @@
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
     "webpack-dev-server": "^3.3.1"
+  },
+  "dependencies": {
+    "@eix/core": "git+https://github.com/eix-js/core.git",
+    "@eix/gfx": "git+https://github.com/eix-js/gfx.git",
+    "@eix/ui": "git+https://github.com/eix-js/ui.git"
   }
 }

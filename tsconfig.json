@@ -6,24 +6,29 @@
                 "types/*"
             ]
         },
-        "module": "es6",
-        "target": "es5",
         "removeComments": true,
-        "preserveConstEnums": true,
         "sourceMap": true,
         "lib": [
             "es2015",
             "es2017",
             "dom"
         ],
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "alwaysStrict": true,
-        "moduleResolution": "Node"
+        "moduleResolution": "Node",
+        "downlevelIteration": true,
+        "target": "es2017",
+        "outDir": "dist",
+        "declaration": true,
+        "module": "commonjs",
+        "experimentalDecorators": true
     },
     "include": [
         "src/**/*.ts"
     ],
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "dist"
     ]
 }
