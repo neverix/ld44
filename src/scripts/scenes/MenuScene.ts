@@ -20,14 +20,15 @@ interface MenuArgs {
  */
 export class MenuScene implements Scene<MenuState, MenuArgs> {
     name: string = "menu"
-    initialState: MenuState = {}
     render(state: MenuState): TemplateResult {
         return html`
             <h1>LD44</h1>
             <a onclick=sceneUtils.start("game")>play</a>
         `
     }
-    start(args: MenuArgs) { }
+    start(args: MenuArgs, setState: (st: MenuState) => void) {
+        setState({})
+    }
     stop() { }
     defaultArgs = {}
 }

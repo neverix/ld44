@@ -10,10 +10,6 @@ export interface Scene<S, A> {
      */
     name: string
     /**
-     * initial state for the scene
-     */
-    initialState: S
-    /**
      * the default arguments for the scene
      */
     defaultArgs: A
@@ -25,8 +21,9 @@ export interface Scene<S, A> {
     /**
      * start the scene
      * @param args the arguments for the scene
+     * @param state setter for the state of the scene
      */
-    start(args: A): void
+    start(args: A, setState: (st: S) => void): void
     /**
      * deactivate the scene
      */
