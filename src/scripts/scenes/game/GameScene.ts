@@ -48,14 +48,16 @@ export class GameScene implements Scene<GameState, GameArgs> {
         this.jobSystem.addTask("update", ecs)
         // add start task
         this.jobSystem.addTask("start", ecs)
+        // add draw task
+        this.jobSystem.addTask("draw", [ecs, canvasRenderer])
+        // add stop task
+        this.jobSystem.addTask("stop", null)
         // add systems
         systems.forEach(system => {
             system(this.jobSystem)
         })
         // run the start task
         this.jobSystem.tasks.start.runJobs(null)
-        // add draw task
-        this.jobSystem.addTask("draw", [ecs, canvasRenderer])
         // add rendering jobs
         this.jobSystem.tasks.draw.addJob("drawableRenderer", drawableRenderer)
         // start main loop

@@ -20,4 +20,9 @@ export const EnemySpawner: System = (jobSystem) => {
             }
         }
     })
+    jobSystem.tasks.stop.addJob("stopSpawner", () => {
+        return () => {
+            clearInterval(interval)
+        }
+    })
 }
