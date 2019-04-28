@@ -65,10 +65,14 @@ export function start(scenes: Scene<any, any>[], startFrom: string) {
          * @param sceneName name of the scene to load
          * @param args arguments passed to the scene
          */
-        start: (sceneName: string, args: any) => {
+        start: (sceneName: string, args?: any) => {
             // hide all scenes besides the current one
             for (let scene in scenesDict) {
                 scenesDict[scene].element.style.display = scene == sceneName ? "block" : "none"
+            }
+            // add default args if they are missing
+            if (args == undefined) {
+                args = scenesDict[sceneName].scene.defaultArgs
             }
             // start the scene
             scenesDict[sceneName].scene.start(args, (state: any) => {

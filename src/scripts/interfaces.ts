@@ -4,7 +4,7 @@ import { start } from './start';
 /**
  * interface for a scene
  */
-export interface Scene<S, A> {
+interface Scene<S, A> {
     /**
      * name of the scene
      */
@@ -17,7 +17,7 @@ export interface Scene<S, A> {
      * render a state
      * @param state state for the scene
      */
-    render(state: { state: S }): TemplateResult
+    render(state: State<S>): TemplateResult
     /**
      * start the scene
      * @param args the arguments for the scene
@@ -29,3 +29,7 @@ export interface Scene<S, A> {
      */
     stop(): void
 }
+
+type State<T> = { state: T }
+
+export { Scene, State }

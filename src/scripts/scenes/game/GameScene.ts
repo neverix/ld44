@@ -12,6 +12,7 @@ import { systems } from "./systems";
 interface GameState {
     ecs: ECS
     jobSystem: JobSystem
+    args: GameArgs
 }
 
 /**
@@ -27,9 +28,10 @@ interface GameArgs {
  */
 export class GameScene implements Scene<GameState, GameArgs> {
     name: string = "game"
-    render(state: GameState): TemplateResult {
+    render(state: { state: GameState }): TemplateResult {
+        const { canvasWidth, canvasHeight } = state.state.args
         return html`
-            <canvas id=canvas width=500 height=500>git gud browser lul</canvas>
+            <canvas id=canvas width=${canvasWidth} height=${canvasHeight}>git gud browser lul</canvas>
         `
     }
     start(args: GameArgs, setState: (state: GameState) => void) {
@@ -38,14 +40,10 @@ export class GameScene implements Scene<GameState, GameArgs> {
         // create job system
         const jobSystem = new JobSystem()
         // update state
-        setState({ ecs, jobSystem })
+        setState({ ecs, jobSystem, args })
         // create renderer
         const canvasRenderer = new CanvasRenderer(
             document.getElementById('canvas') as HTMLCanvasElement)
-        // add draw task
-        jobSystem.addTask("draw", [ecs, canvasRenderer])
-        // add rendering jobs
-        addRenderingJobs(jobSystem.tasks.draw)
         // add update task
         jobSystem.addTask("update", ecs)
         // add start task
@@ -56,6 +54,10 @@ export class GameScene implements Scene<GameState, GameArgs> {
         })
         // run the start task
         jobSystem.tasks.start.runJobs(null)
+        // add draw task
+        jobSystem.addTask("draw", [ecs, canvasRenderer])
+        // add rendering jobs
+        addRenderingJobs(jobSystem.tasks.draw)
         // start main loop
         MainLoop
             .setUpdate((delta) => jobSystem.tasks.update.runJobs(delta))
@@ -66,7 +68,7 @@ export class GameScene implements Scene<GameState, GameArgs> {
         MainLoop.stop()
     }
     defaultArgs = {
-        canvasWidth: 500,
-        canvasHeight: 500
+        canvasWidth: 600,
+        canvasHeight: 400
     }
 }
