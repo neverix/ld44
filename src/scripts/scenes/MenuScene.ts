@@ -1,34 +1,30 @@
-import { Scene } from "../scene"
-import { html, TemplateResult } from 'lit-html'
+import { html, render } from "lit-html"
+import { Scene, ScenePortal, SceneOptions, sceneData } from "@eix/ui"
 
-/**
- * state for the menu
- */
-interface MenuState {
+@Scene({
+    template: (target: any) => html`
+        <h1>LD44 game</h1>
+        <p>ye</p>
+        <a onclick='loadScene("game")'>playyy</a>
+    `,
+    render,
+    name: "menu",
+    plugins: [{
+        events: {
+            start: (val: boolean, data: sceneData) => {
+                data.instance.started = true
+                data.parent.style.display = "block"
+            },
+            stop: (val: boolean, data: sceneData) => {
+                data.instance.started = false
+                data.parent.style.display = "none"
+            }
+        }
+    }]
+})
+export class MenuScene {
+    @ScenePortal<boolean>()
+    started: boolean //curently if i dont add any portals it wont render, will fix tomorrow
 
-}
-
-/**
- * arguments for loading the menu
- */
-interface MenuArgs {
-
-}
-
-/**
- * the menu scene
- */
-export class MenuScene implements Scene<MenuState, MenuArgs> {
-    name: string = "menu"
-    render(state: { state: MenuState }): TemplateResult {
-        return html`
-            <h1>LD44</h1>
-            <a onclick=sceneUtils.start("game")>play</a>
-        `
-    }
-    start(args: MenuArgs, setState: (st: MenuState) => void) {
-        setState({})
-    }
-    stop() { }
-    defaultArgs = {}
+    constructor() { }
 }
