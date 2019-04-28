@@ -1,17 +1,35 @@
 import { System } from "../system"
-import { ECS } from "@eix/core";
-import { vec2 } from "gl-matrix";
+import { ECS } from "@eix/core"
+import { vec2 } from "gl-matrix"
+import { Components } from "@eix/core/dist/ecs/interfaces"
 
 export const Background: System = (jobSystem) => {
+    let bgEntity: Components
     jobSystem.tasks.start.addJob("background", (ecs: ECS) => {
         return (_e: any) => {
             const background = new Image()
             background.src = require("../../../../../img/bg/bg.png")
-            ecs.addEntityFlowGroup()
-                .addComponent("sprite", { image: background })
-                .addComponent("position", vec2.fromValues(0, 0))
-                .addComponent("rotation", 0)
-                .addComponent("scale", vec2.fromValues(600, 400))
+            const bgID = ecs.addEntity()
+            ecs.all.is(bgID)
+                .addComponent("drawable", {
+                    layer: -10,
+                    position: vec2.fromValues(0, 0),
+                    scale: vec2.fromValues(600, 400),
+                    rotation: 0,
+                    drawableContent: {
+                        image: background,
+                        type: "sprite"
+                    }
+                })
+            bgEntity = ecs.entities[bgID]
+        }
+    })
+    jobSystem.tasks.update.addJob("backgroundScale", (ecs: ECS) => {
+        return (delta: number) => {
+            bgEntity.drawable.rotation = bgEntity.drawable.rotation + 0.01
+            if (bgEntity.drawable.rotation > Math.PI / 2) {
+                bgEntity.drawable.rotation = -Math.PI / 2
+            }
         }
     })
 }

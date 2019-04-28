@@ -1,10 +1,9 @@
 import { ECS, JobSystem } from "@eix/core"
 import { Scene } from "../../scene"
 import { html, TemplateResult } from 'lit-html'
-import { CanvasRenderer } from "@eix/gfx"
+import { CanvasRenderer, drawableRenderer } from "@eix/gfx"
 import * as MainLoop from "mainloop.js"
-import { addRenderingJobs } from "./renderingJobs"
-import { systems } from "./systems";
+import { systems } from "./systems"
 
 /**
  * state for the menu
@@ -57,11 +56,15 @@ export class GameScene implements Scene<GameState, GameArgs> {
         // add draw task
         jobSystem.addTask("draw", [ecs, canvasRenderer])
         // add rendering jobs
-        addRenderingJobs(jobSystem.tasks.draw)
+        jobSystem.tasks.draw.addJob("drawableRenderer", drawableRenderer)
         // start main loop
         MainLoop
             .setUpdate((delta) => jobSystem.tasks.update.runJobs(delta))
-            .setDraw(() => jobSystem.tasks.draw.runJobs(null)).start()
+            .setDraw(() => {
+                canvasRenderer.clear()
+                jobSystem.tasks.draw.runJobs(null)
+                canvasRenderer.draw()
+            }).start()
     }
     stop() {
         // stop main loop
