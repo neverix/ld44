@@ -24,12 +24,4 @@ export const Background: System = (jobSystem) => {
             bgEntity = ecs.entities[bgID]
         }
     })
-    jobSystem.tasks.update.addJob("backgroundScale", (ecs: ECS) => {
-        return (delta: number) => {
-            bgEntity.drawable.rotation = bgEntity.drawable.rotation + 0.01
-            if (bgEntity.drawable.rotation > Math.PI / 2) {
-                bgEntity.drawable.rotation = -Math.PI / 2
-            }
-        }
-    })
 }
