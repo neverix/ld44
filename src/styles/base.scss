@@ -18,7 +18,7 @@ body,html {
 #health {
     z-index: 9999;
     position:absolute;
-    top: 44%;
+    top: 39%;
     left: 1.8%;
     margin-left: 0;
     margin-right: 0;
@@ -38,9 +38,6 @@ body,html {
     font-family: 'Luna';
     src: url('../../font/Luna.ttf');
 }
-
-
-
 
 .menu {
     background-image: url("/img/titles/island.png");
@@ -63,8 +60,9 @@ body,html {
     width: 100%;
     font-size: 400%;
     font-family: Luna;
-    padding: 5%;
+    padding: 4%;
     padding-bottom: 0;
+    padding-left: 10%;
 }
 
 .pink{
@@ -80,7 +78,7 @@ body,html {
     justify-content:space-evenly;
     width: 30%;
     align-items: center;
-    color:black;
+    color: #2e2e2e;
     padding: 10%;
     padding-top: 0;
     width: 75%;
@@ -89,6 +87,7 @@ body,html {
 .menuButton {
     font-size: 200%;
     font-family: Roboto;
+    padding-left: 9%;
 }
 
 .screen {

@@ -4,9 +4,8 @@ import { Scene, ScenePortal, sceneData } from "@eix/ui"
 @Scene({
     template: (_target: any) => html`
         <h1>You lost</h1>
-        <p>:(</p>
-        <a onclick='loadScene("game")'>tryyy again</a>
-        <a onclick='loadScene("menu")'>back to menu</a>
+        <a onclick='loadScene("game")'>Try again</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a onclick='loadScene("menu")'>Back to menu</a>
     `,
     render,
     name: "menu",

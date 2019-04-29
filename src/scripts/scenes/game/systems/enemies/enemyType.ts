@@ -10,7 +10,7 @@ const enemyTypes: EnemyType[] = [
         name: "kid",
         strength: 10,
         health: 1,
-        speed: 2
+        speed: 10
     }
 ]
 
