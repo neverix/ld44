@@ -1,8 +1,7 @@
 import { System } from "../../system"
 import { ECS } from "@eix/core"
 import { vec2, vec3 } from "gl-matrix"
-import { enemyTypes } from "./enemyType";
-import { ComponentTracker } from "@eix/core/dist/ecs/componentTracker"
+import { enemyTypes } from "./enemyType"
 
 /**
  * generate a random value
@@ -33,14 +32,13 @@ export const EnemySpawner: System = (jobSystem) => {
                 .get("rendererInfo")*/
         return (_delta: number) => {
             if (addEntity) {
-                console.log("added entity")
                 //const rendererInfo: RendererInfo = rendererInfoTracker.tracked[0].rendererInfo
-                ecs.addEntityFlowGroup()
+                const enemy = ecs.addEntity()
+                ecs.all.is(enemy)
                     .addComponent("position", vec2.fromValues(
                         600,
                         400 - random(0, 400 / 2)
                     ))
-                    .addComponent("enemy", enemyTypes[random(0, enemyTypes.length, true)])
                     .addComponent("drawable",
                         {
                             layer: 1,
@@ -55,7 +53,8 @@ export const EnemySpawner: System = (jobSystem) => {
                                 color: vec3.fromValues(200, 50, 20)
                             }
                         })
-                    .get()
+                    .addComponent("enemy", enemyTypes[random(0, enemyTypes.length, true)])
+                console.log("added entity")
                 addEntity = false
             }
         }
