@@ -3,9 +3,13 @@ import { Scene, ScenePortal, SceneOptions, sceneData } from "@eix/ui"
 
 @Scene({
     template: (_target: any) => html`
-        <h1>LD44 game</h1>
-        <p>ye</p>
-        <a onclick='loadScene("game")'>playyy</a>
+        <div class="gameName">
+            100 leave
+        </div>
+        <div class="menuButtons">
+            <div class="menuButton">something else</div> 
+            <div class="menuButton">play</div>
+        </div>
     `,
     render,
     name: "menu",
@@ -13,7 +17,7 @@ import { Scene, ScenePortal, SceneOptions, sceneData } from "@eix/ui"
         events: {
             start: (_val: boolean, data: sceneData) => {
                 data.instance.started = true
-                data.parent.style.display = "block"
+                data.parent.style.display = "flex"
             },
             stop: (_val: boolean, data: sceneData) => {
                 data.instance.started = false
