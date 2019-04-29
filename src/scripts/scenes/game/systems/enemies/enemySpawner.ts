@@ -22,7 +22,7 @@ export const EnemySpawner: System = (jobSystem) => {
             //@ts-ignore
             interval = setInterval(() => {
                 addEntity = true
-            }, 2700)
+            }, 2400)
         }
     })
     jobSystem.tasks.update.addJob("spawnEnemies", (ecs: ECS) => {
@@ -34,19 +34,18 @@ export const EnemySpawner: System = (jobSystem) => {
             if (addEntity) {
                 //const rendererInfo: RendererInfo = rendererInfoTracker.tracked[0].rendererInfo
                 const enemy = ecs.addEntity()
+                const size = 30
+                const position = vec2.fromValues(
+                    600,
+                    400 - random(size, 400 / 2)
+                )
                 ecs.all.is(enemy)
-                    .addComponent("position", vec2.fromValues(
-                        600,
-                        400 - random(0, 400 / 2)
-                    ))
+                    .addComponent("position", position)
                     .addComponent("drawable",
                         {
                             layer: 1,
-                            position: vec2.fromValues(
-                                600,
-                                random(0, 400 / 2)
-                            ),
-                            scale: vec2.fromValues(100, 100),
+                            position,
+                            scale: vec2.fromValues(size, size),
                             rotation: 0,
                             drawableContent: {
                                 type: "rect",

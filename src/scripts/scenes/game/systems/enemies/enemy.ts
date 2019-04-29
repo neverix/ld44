@@ -32,14 +32,16 @@ export const Enemy: System = (jobSystem: JobSystem) => {
             tracked.forEach(enemy => {
                 enemy.position[0] = enemy.position[0] - enemy.enemy.speed
                 enemy.drawable.position = enemy.position
-                if (enemy.position[0] <= enemy.drawable.scale[0] && enemy[idKey] in ecs.entities) {
+                if (enemy.position[0] <= 70 && enemy[idKey] in ecs.entities) {
                     delete ecs.entities[enemy[idKey]]
                     ecs.emit("entityDeleted", enemy[idKey])
                     tracked = ecs.all
                         .has("enemy", "position", "drawable")
                         .get("enemy", "position", "drawable")
                         .tracked
-                    console.log("boom")
+                    const tree = ecs.all.has("tree").get("health").tracked[0]
+                    tree.health = tree.health - enemy.enemy.strength
+                    console.log(tree.health)
                 }
             })
         }

@@ -9,6 +9,7 @@ let currentScene = "menu"
 //@ts-ignore
 window["loadScene"] = (newScene) => {
     sceneManager.switch(newScene, currentScene)
+    console.log('ye')
     currentScene = newScene
 }
 

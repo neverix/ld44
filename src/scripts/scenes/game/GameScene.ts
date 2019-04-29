@@ -20,6 +20,9 @@ import { systems } from "./systems"
             start: (_val, data) => {
                 data.instance.started = true
                 const tis: GameScene = data.instance
+                // create ECS and job system
+                tis.ecs = new ECS()
+                tis.jobSystem = new JobSystem()
                 // create renderer
                 tis.canvasRenderer = new CanvasRenderer(
                     document.getElementById('canvas') as HTMLCanvasElement)
@@ -65,8 +68,8 @@ export class GameScene {
     @ScenePortal<boolean>()
     started: boolean = false
 
-    jobSystem: JobSystem = new JobSystem()
-    ecs: ECS = new ECS()
+    jobSystem: JobSystem
+    ecs: ECS
     canvasRenderer: CanvasRenderer
     defaultArgs = {
         canvasWidth: 600,
