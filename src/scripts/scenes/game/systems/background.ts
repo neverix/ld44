@@ -12,7 +12,7 @@ export const Background: System = (jobSystem) => {
             const bgID = ecs.addEntity()
             ecs.all.is(bgID)
                 .addComponent("drawable", {
-                    layer: -10,
+                    layer: 0,
                     position: vec2.fromValues(0, 0),
                     scale: vec2.fromValues(600, 400),
                     rotation: 0,

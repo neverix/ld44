@@ -43,8 +43,8 @@ import { systems } from "./systems"
                 MainLoop
                     .setUpdate((delta) => tis.jobSystem.tasks.update.runJobs(delta))
                     .setDraw(() => {
-                        tis.canvasRenderer.clear()
                         tis.jobSystem.tasks.draw.runJobs(null)
+                        tis.canvasRenderer.clear()
                         tis.canvasRenderer.draw()
                     }).start()
                 data.parent.style.display = "block"
