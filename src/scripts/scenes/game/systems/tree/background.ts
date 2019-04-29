@@ -30,7 +30,7 @@ export const Background: System = (jobSystem) => {
             foregroundHappy.src = require("../../../../../../img/bg/trunk-happy.png")
             foregroundSad.src = require("../../../../../../img/bg/trunk-sad.png")
             ecs.addEntityFlowGroup().addComponent("drawable", {
-                layer: 2,
+                layer: 3,
                 position: vec2.fromValues(0, 0),
                 scale: vec2.fromValues(1920, 1080),
                 rotation: 0,
@@ -42,7 +42,7 @@ export const Background: System = (jobSystem) => {
             const fgID = ecs.addEntity()
             ecs.all.is(fgID)
                 .addComponent("drawable", {
-                    layer: 3,
+                    layer: 4,
                     position: vec2.fromValues(0, 0),
                     scale: vec2.fromValues(1920, 1080),
                     rotation: 0,
