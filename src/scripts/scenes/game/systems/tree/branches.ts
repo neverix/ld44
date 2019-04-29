@@ -23,10 +23,10 @@ export const Branches: System = (jobSystem: JobSystem) => {
         numberKeys.push(keyboardInput)
     }
 
-    const leftKey = new KeyboardInput("left","a")
-    const rightKey = new KeyboardInput("right","d")
-    const downKey = new KeyboardInput("down","s")
-    const upKey = new KeyboardInput("up","w")
+    const leftKey = new KeyboardInput("left", "a")
+    const rightKey = new KeyboardInput("right", "d")
+    const downKey = new KeyboardInput("down", "s")
+    const upKey = new KeyboardInput("up", "w")
     const space = new KeyboardInput("space")
 
     const branches: [ComponentTracker, ComponentTracker][] = []
@@ -34,6 +34,9 @@ export const Branches: System = (jobSystem: JobSystem) => {
 
     const branchImage = new Image()
     const branchImage2 = new Image()
+
+
+    const { max, min } = Math
 
     jobSystem.tasks.start.addJob("branches", (ecs: ECS) => {
         return (_e) => {
@@ -80,21 +83,30 @@ export const Branches: System = (jobSystem: JobSystem) => {
                     const branch1 = branchez[0].tracked[0].drawable
                     const branch2 = branchez[1].tracked[0].drawable
 
+                    const minLength = branchImage.width / 3
+                    const maxLength = minLength * 3
+
+                    const maxRotation = Math.PI / 3 // 60 degrees
+
                     const maxMomentum = -10
                     if (index == currentBranch) {
-                        const branch_speed = maxMomentum  / branch1.scale[0]
+                        const branch_speed = maxMomentum / branch1.scale[0]
 
                         if (leftKey.value) {
-                            branch1.rotation += branch_speed
+                            branch1.rotation = max(branch1.rotation + branch_speed,
+                                (index == 0) ? -Math.PI / 24 : -maxRotation
+                            )
                         }
                         if (rightKey.value) {
-                            branch1.rotation -= branch_speed
+                            branch1.rotation = min(branch1.rotation - branch_speed,
+                                (index == 2) ? Math.PI / 6 : maxRotation    
+                            )
                         }
                         if (upKey.value) {
-                            branch1.scale[0] += 10
+                            branch1.scale[0] = min(maxLength,max(minLength, branch1.scale[0] + 10))
                         }
                         if (downKey.value) {
-                            branch1.scale[0] -= 10
+                            branch1.scale[0] = min(maxLength,max(minLength, branch1.scale[0] - 10))
                         }
                     }
 
@@ -117,7 +129,14 @@ export const Branches: System = (jobSystem: JobSystem) => {
                             const diff = vec2.length(
                                 vec2.sub(vec2.create(), branch2Position, enemy.position))
                             if (diff <= enemy.drawable.scale[1] * 4) {
-                                delete ecs.entities[enemy[idKey]]
+                                const entities = ecs.entities
+                                let obj: any = {}
+
+                                for (let i in entities)
+                                    if (i != enemy[idKey])
+                                        obj[i] = entities[i]
+
+                                ecs.entities = obj
                                 ecs.emit("entityDeleted", enemy[idKey])
                                 found = true
                             }
