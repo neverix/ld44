@@ -1,3 +1,39 @@
 body {
     background-color: black;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#canvas {
+    width: 100%;
+}
+
+.game {
+    width: 100%;
+}
+
+#health {
+    z-index: 9999;
+    position:absolute;
+    top: 44%;
+    left: 1.8%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 200%;
+    color: #2d2d2d;
+    font-family: Luna;
+    text-align: center
+}
+
+@font-face {
+    font-family: 'Luna';
+    src: url('../../font/Luna.ttf');
 }

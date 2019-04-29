@@ -36,8 +36,8 @@ export const EnemySpawner: System = (jobSystem) => {
                 const enemy = ecs.addEntity()
                 const size = 30
                 const position = vec2.fromValues(
-                    600,
-                    400 - random(size, 400 / 2)
+                    1920,
+                    1080 - random(size, 1080 / 2)
                 )
                 ecs.all.is(enemy)
                     .addComponent("position", position)

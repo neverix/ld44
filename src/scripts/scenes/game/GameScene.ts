@@ -11,8 +11,8 @@ import { systems } from "./systems"
  */
 @Scene({
     template: ({ health }: any) => html`
-        <p>${health}</p>
-        <canvas id=canvas width=600 height=400>git gud browser lul</canvas>
+        <span id=health>${health}%</span>
+        <canvas id=canvas width=1920 height=1080>git gud browser lul</canvas>
     `,
     render,
     name: "game",
@@ -49,9 +49,11 @@ import { systems } from "./systems"
                     const treeTracker = ecs.all.has('tree').get('health')
                     return (_delta: number) => {
                         let health = treeTracker.tracked[0].health
-                        if (!!health.data) { health = health.data }
                         if (health != oldHealth) {
-                            tis.health = health.toString()
+                            if (typeof health == "object")
+                                tis.health = health.data
+                            else
+                                tis.health = health.toString()
                         }
                     }
                 })

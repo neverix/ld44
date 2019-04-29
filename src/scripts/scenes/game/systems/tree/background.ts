@@ -6,6 +6,7 @@ import { Components } from "@eix/core/dist/ecs/interfaces"
 export const Background: System = (jobSystem) => {
     let bgEntity: Components
     let fgEntity: Components
+    let trunk = new Image()
     let foregroundHappy = new Image()
     let foregroundSad = new Image()
 
@@ -18,21 +19,32 @@ export const Background: System = (jobSystem) => {
                 .addComponent("drawable", {
                     layer: 0,
                     position: vec2.fromValues(0, 0),
-                    scale: vec2.fromValues(600, 400),
+                    scale: vec2.fromValues(1920, 1080),
                     rotation: 0,
                     drawableContent: {
                         image: background,
                         type: "sprite"
                     }
                 })
-            foregroundHappy.src = require("../../../../../../img/bg/trunk.png")
+            trunk.src = require("../../../../../../img/bg/trunk.png")
+            foregroundHappy.src = require("../../../../../../img/bg/trunk-happy.png")
             foregroundSad.src = require("../../../../../../img/bg/trunk-sad.png")
+            ecs.addEntityFlowGroup().addComponent("drawable", {
+                layer: 2,
+                position: vec2.fromValues(0, 0),
+                scale: vec2.fromValues(1920, 1080),
+                rotation: 0,
+                drawableContent: {
+                    image: trunk,
+                    type: "sprite"
+                }
+            })
             const fgID = ecs.addEntity()
             ecs.all.is(fgID)
                 .addComponent("drawable", {
-                    layer: 2,
+                    layer: 3,
                     position: vec2.fromValues(0, 0),
-                    scale: vec2.fromValues(600, 400),
+                    scale: vec2.fromValues(1920, 1080),
                     rotation: 0,
                     drawableContent: {
                         image: foregroundHappy,

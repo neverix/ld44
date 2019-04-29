@@ -18,14 +18,16 @@ export const Tree: System = (jobSystem: JobSystem) => {
         return () => {
             if (!ded) {
                 const tree = treeTracker.tracked[0]
-                if (!!tree.health.data) tree.health = tree.health.data
-                if (tree.health <= 0) {
+                while (!!tree.health.data) tree.health = tree.health.data
+                if (tree.health <= 0 || (typeof tree.health == "object" && "data" in tree.health)) {
                     console.log('oof')
                     ded = true
-                    // TODO
-                    //@ts-ignore
-                    loadScene("gameover")
                 }
+            }
+            if (ded) {
+                // TODO
+                //@ts-ignore
+                loadScene("gameover")
             }
         }
     })

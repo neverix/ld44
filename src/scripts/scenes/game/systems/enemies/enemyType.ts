@@ -8,7 +8,7 @@ interface EnemyType {
 const enemyTypes: EnemyType[] = [
     {
         name: "kid",
-        strength: 40,
+        strength: 10,
         health: 1,
         speed: 2
     }
