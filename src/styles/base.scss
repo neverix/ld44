@@ -1,8 +1,10 @@
-body {
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
+body,html {
+    background-color: black;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    display: block;
+    overflow: hidden;
 }
 
 #canvas {
@@ -35,4 +37,87 @@ body {
 @font-face {
     font-family: 'Luna';
     src: url('../../font/Luna.ttf');
+}
+
+
+
+
+.menu {
+    background-image: url("/img/titles/island.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+    color:white;
+    justify-content:start;
+    vertical-align: center;
+}
+
+.gameName {
+    width: 100%;
+    font-size: 400%;
+    font-family: Luna;
+    padding: 5%;
+    padding-bottom: 0;
+}
+
+.pink{
+    color:#ffa6eb;
+}
+.yellow{
+    color:#ffdc5d;
+}
+
+.menuButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    width: 30%;
+    align-items: center;
+    color:black;
+    padding: 10%;
+    padding-top: 0;
+    width: 75%;
+}
+
+.menuButton {
+    font-size: 200%;
+    font-family: Roboto;
+}
+
+.screen {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color:white;
+    z-index: 100;
+    display: flex;
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    border-top-left-radius: 10%;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+
+    button {
+        border: unset;
+        background-color: rgba(0,0,0,0);
+        height: 100%;
+        width:100%;
+        display:block;
+        * {
+            height: 100%;
+            width:100%;
+            display: block;
+        }
+    }
 }

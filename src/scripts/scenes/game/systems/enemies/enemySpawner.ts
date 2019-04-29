@@ -54,7 +54,6 @@ export const EnemySpawner: System = (jobSystem) => {
                         })
                     .addComponent("enemy", enemyTypes[random(0, enemyTypes.length, true)])
 
-                // console.log(ecs.all.is(enemy).get("positon","drawable","enemy").tracked[0].enemy)
                 console.log("added entity")
                 addEntity = false
             }
