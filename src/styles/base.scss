@@ -18,16 +18,10 @@ body,html {
 #health {
     z-index: 9999;
     position:absolute;
-    top: 44%;
+    top: 30%;
     left: 1.8%;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+    margin: 0;
+    padding: 0;
     font-size: 200%;
     color: #2d2d2d;
     font-family: Luna;
@@ -120,4 +114,19 @@ body,html {
             display: block;
         }
     }
+}
+
+
+// * {
+//     transition: all 2s;
+// }
+
+
+.game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    align-items: center;
 }
