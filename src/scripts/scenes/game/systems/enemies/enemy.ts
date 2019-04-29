@@ -2,6 +2,11 @@ import { JobSystem, ECS, idKey } from "@eix/core"
 import { System } from "../../system"
 // import { ComponentTracker } from "@eix/core/dist/ecs/componentTracker"
 
+import {KeyboardInput}  from "@eix/input"
+
+let done = false
+const e = new KeyboardInput("m","M")
+
 interface UpdateData {
     id: number
     key: string
@@ -31,6 +36,14 @@ export const Enemy: System = (jobSystem: JobSystem) => {
                     const tree = ecs.all.has("tree").get("health").tracked[0]
                     tree.health = tree.health - enemy.enemy.strength
                     // console.log(tree.health)
+                }
+
+                if (e.value && !done) {
+                    const tree = ecs.all.has("tree").get("health").tracked[0]
+                
+                    done = true
+
+                    tree.health = 0
                 }
             })
         }

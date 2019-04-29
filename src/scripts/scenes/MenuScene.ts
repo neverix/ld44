@@ -47,6 +47,7 @@ export class MenuScene {
 
     play() {
         //@ts-ignore
-        window.loadScene("game")
+        window.loadScene("story")
+        this.opacity = 0
     }
 }

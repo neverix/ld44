@@ -6,6 +6,7 @@ import * as MainLoop from "mainloop.js"
 import { systems } from "./systems"
 import { opacityPlugin } from "../../plugins/opacity";
 import { zindex } from "../../plugins/zindex";
+import { loadAudio } from "../../../scripts/loadStuff";
 
 
 /**
@@ -79,6 +80,9 @@ import { zindex } from "../../plugins/zindex";
                     }).start()
 
                 data.instance.opacity = 1
+
+                //music
+                tis.music.play()
             },
             stop: (_val, data) => {
                 data.instance.started = false
@@ -88,6 +92,9 @@ import { zindex } from "../../plugins/zindex";
                 // stop main loop
                 MainLoop.stop()
                 data.instance.opacity = 0
+
+                //music
+                tis.music.pause()
             }
         }
     }]
@@ -109,6 +116,8 @@ export class GameScene {
         canvasWidth: 600,
         canvasHeight: 400
     }
+
+    music = loadAudio("/audio/main.ogg")
 
     get score() {
         try {

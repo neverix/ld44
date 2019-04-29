@@ -6,9 +6,9 @@ import { enemyTypes } from "./enemyType"
 function generateSpeed(old: number, value: number, points: number): number {
     // coefficients
     const a = 50
-    const b = 80
+    const b = 30
     const c = 10
-    const d = Math.PI / ( Math.E * Math.log(2)) // this has no logic but it looks cool
+    const d = 2.5 
 
     //a * 100 - (100 - b) * c = b * ( a - .... )
 
