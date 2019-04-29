@@ -126,9 +126,12 @@ export const Branches: System = (jobSystem: JobSystem) => {
                         let found = false
                         ecs.all.has("enemy").get("position", "drawable").tracked.forEach(enemy => {
                             if (found) return
+
+                            const diffCorection = 200
+
                             const diff = vec2.length(
                                 vec2.sub(vec2.create(), branch2Position, enemy.position))
-                            if (diff <= enemy.drawable.scale[1] * 4) {
+                            if (diff + diffCorection  <= enemy.drawable.scale[1] * 4) {
                                 const entities = ecs.entities
                                 let obj: any = {}
 
