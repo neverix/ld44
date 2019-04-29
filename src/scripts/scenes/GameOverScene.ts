@@ -1,11 +1,12 @@
 import { html, render } from "lit-html"
-import { Scene, ScenePortal, SceneOptions, sceneData } from "@eix/ui"
+import { Scene, ScenePortal, sceneData } from "@eix/ui"
 
 @Scene({
     template: (_target: any) => html`
-        <h1>LD44 game</h1>
-        <p>ye</p>
-        <a onclick='loadScene("game")'>playyy</a>
+        <h1>You lost</h1>
+        <p>:(</p>
+        <a onclick='loadScene("game")'>tryyy again</a>
+        <a onclick='loadScene("menu")'>back to menu</a>
     `,
     render,
     name: "menu",
@@ -22,7 +23,7 @@ import { Scene, ScenePortal, SceneOptions, sceneData } from "@eix/ui"
         }
     }]
 })
-export class MenuScene {
+export class GameOverScene {
     @ScenePortal<boolean>()
     started: boolean
 

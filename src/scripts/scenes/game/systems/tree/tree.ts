@@ -24,7 +24,7 @@ export const Tree: System = (jobSystem: JobSystem) => {
                     ded = true
                     // TODO
                     //@ts-ignore
-                    loadScene("menu")
+                    loadScene("gameover")
                 }
             }
         }
