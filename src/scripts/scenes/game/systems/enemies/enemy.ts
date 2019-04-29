@@ -17,7 +17,15 @@ export const Enemy: System = (jobSystem: JobSystem) => {
             components.tracked.forEach(enemy => {
                 enemy.position[0] = enemy.position[0] - enemy.enemy.speed
                 if (enemy.position[0] <= 210 && enemy[idKey] in ecs.entities) {
-                    delete ecs.entities[enemy[idKey]]
+
+                    const entities = ecs.entities
+                    let obj: any = {}
+
+                    for (let i in entities)
+                        if (i != enemy[idKey])
+                            obj[i] = entities[i]
+
+                    ecs.entities = obj
                     ecs.emit("entityDeleted", enemy[idKey])
                     const tree = ecs.all.has("tree").get("health").tracked[0]
                     tree.health = tree.health - enemy.enemy.strength

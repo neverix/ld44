@@ -22,6 +22,8 @@ export const opacityPlugin: Plugin = {
             setInterval(() => {
                 const { opacity, opacitySmoothness } = data.instance
 
+                if (secret == opacity) return 
+
                 secret += (opacity - secret) / opacitySmoothness
 
                 //update 

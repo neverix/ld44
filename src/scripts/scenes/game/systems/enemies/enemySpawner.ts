@@ -58,7 +58,7 @@ export const EnemySpawner: System = (jobSystem) => {
                         })
                     .addComponent("enemy", type)
                     .addComponent("images",images)
-                    .addComponent("timer",0)
+                    .addComponent("timer",{time:0})
 
                 console.log("added entity")
                 addEntity = false

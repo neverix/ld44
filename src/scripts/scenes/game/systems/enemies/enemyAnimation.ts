@@ -14,16 +14,16 @@ export const enemyAnimation: System = (js: JobSystem) => {
             components.tracked.forEach((entity: any) => {
                 if (!!entity) {
                     //increase timer
-                    entity.timer += delta
+                    entity.timer.time += delta
 
                     //get timestamp
-                    const minTimeStamp = 1000 / entity.enemy.fps
+                    const minTimeStamp = 100
 
                     // console.log(entity.timer)
 
-                    if (minTimeStamp < entity.timer) {
+                    if (minTimeStamp < entity.timer.time) {
                         //reset timer
-                        entity.timer = 0
+                        entity.timer.time = 0
 
                         //get index of new image
                         const index = entity.images.indexOf(
