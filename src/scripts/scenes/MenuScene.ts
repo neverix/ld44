@@ -1,14 +1,15 @@
 import { html, render } from "lit-html"
-import { Scene, ScenePortal, SceneOptions, sceneData } from "@eix/ui"
+import { Scene, ScenePortal, SceneOptions, sceneData, SceneManager } from "@eix/ui"
 
 @Scene({
     template: (_target: any) => html`
         <div class="gameName">
-            100 leave
+            <span class="pink">100</span>
+            <span class="yellow">leaves</span>
         </div>
         <div class="menuButtons">
-            <div class="menuButton">something else</div> 
-            <div class="menuButton">play</div>
+            <div class="menuButton" @click="${() => _target.play()}">play</div> 
+            <div class="menuButton">credits</div>
         </div>
     `,
     render,
@@ -31,4 +32,9 @@ export class MenuScene {
     started: boolean
 
     constructor() { }
+
+    play() { 
+        //@ts-ignore
+        window.loadScene("game")
+    }
 }

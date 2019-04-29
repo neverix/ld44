@@ -43,6 +43,10 @@ body,html {
 
 
 .menu {
+    background-image: url("/img/titles/island.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     height: 100%;
     width: 100%;
     display: flex;
@@ -51,7 +55,7 @@ body,html {
     text-align: center;
     align-items: center;
     color:white;
-    justify-content: center;
+    justify-content:start;
     vertical-align: center;
 }
 
@@ -60,14 +64,26 @@ body,html {
     font-size: 400%;
     font-family: Luna;
     padding: 5%;
+    padding-bottom: 0;
+}
+
+.pink{
+    color:#ffa6eb;
+}
+.yellow{
+    color:#ffdc5d;
 }
 
 .menuButtons {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content:space-evenly;
     width: 30%;
     align-items: center;
+    color:black;
+    padding: 10%;
+    padding-top: 0;
+    width: 75%;
 }
 
 .menuButton {
@@ -94,6 +110,14 @@ body,html {
 
     button {
         border: unset;
-        background-color: rgba(0,0,0,0)
+        background-color: rgba(0,0,0,0);
+        height: 100%;
+        width:100%;
+        display:block;
+        * {
+            height: 100%;
+            width:100%;
+            display: block;
+        }
     }
 }
