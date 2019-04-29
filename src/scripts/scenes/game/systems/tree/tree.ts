@@ -1,5 +1,5 @@
 import { System } from "../../system"
-import { JobSystem, ECS, idKey } from "@eix/core"
+import { JobSystem, ECS } from "@eix/core"
 import { ComponentTracker } from "@eix/core/dist/ecs/componentTracker"
 
 export const Tree: System = (jobSystem: JobSystem) => {

@@ -10,7 +10,8 @@ import { systems } from "./systems"
  * the menu scene
  */
 @Scene({
-    template: (target: any) => html`
+    template: ({ health }: any) => html`
+        <p>${health}</p>
         <canvas id=canvas width=600 height=400>git gud browser lul</canvas>
     `,
     render,
@@ -20,6 +21,8 @@ import { systems } from "./systems"
             start: (_val, data) => {
                 data.instance.started = true
                 const tis: GameScene = data.instance
+                // reset health
+                tis.health = 100
                 // create ECS and job system
                 tis.ecs = new ECS()
                 tis.jobSystem = new JobSystem()
@@ -40,6 +43,18 @@ import { systems } from "./systems"
                 })
                 // run the start task
                 tis.jobSystem.tasks.start.runJobs(null)
+                // update health on update
+                tis.jobSystem.tasks.update.addJob("updateHealth", (ecs: ECS) => {
+                    let oldHealth = tis.health
+                    const treeTracker = ecs.all.has('tree').get('health')
+                    return (_delta: number) => {
+                        let health = treeTracker.tracked[0].health
+                        if (!!health.data) { health = health.data }
+                        if (health != oldHealth) {
+                            tis.health = health.toString()
+                        }
+                    }
+                })
                 // add rendering jobs
                 tis.jobSystem.tasks.draw.addJob("drawableRenderer", drawableRenderer)
                 // start main loop
@@ -65,8 +80,8 @@ import { systems } from "./systems"
     }]
 })
 export class GameScene {
-    @ScenePortal<boolean>()
-    started: boolean = false
+    @ScenePortal<number>()
+    health: number = 100
 
     jobSystem: JobSystem
     ecs: ECS
