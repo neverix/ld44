@@ -11,34 +11,36 @@ export const enemyAnimation: System = (js: JobSystem) => {
 
         //return a function
         return (delta: number) => {
+
             components.tracked.forEach((entity: any) => {
-                if (!!entity) {
+                try {
                     //increase timer
                     entity.timer += delta
+                } catch (e) { }
 
-                    //get timestamp
-                    const minTimeStamp = 1000 / entity.enemy.fps
+                //get timestamp
+                const minTimeStamp = 1000 / entity.enemy.fps
 
-                    // console.log(entity.timer)
 
-                    if (minTimeStamp < entity.timer) {
-                        //reset timer
-                        entity.timer = 0
+                // console.log(entity.timer)
 
-                        //get index of new image
-                        const index = entity.images.indexOf(
-                            entity.drawable.drawableContent.image
-                        ) + 1
+                if (minTimeStamp < entity.timer) {
+                    //reset timer
+                    entity.timer = 0
 
-                        // console.log(index)
+                    //get index of new image
+                    const index = entity.images.indexOf(
+                        entity.drawable.drawableContent.image
+                    ) + 1
 
-                        //update image
-                        entity.drawable.drawableContent.image = entity.images[
-                            (index >= entity.images.length) ? 0 : index
-                        ]
+                    // console.log(index)
 
-                        // console.log(entity.drawable.drawableContent)
-                    }
+                    //update image
+                    entity.drawable.drawableContent.image = entity.images[
+                        (index >= entity.images.length) ? 0 : index
+                    ]
+
+                    // console.log(entity.drawable.drawableContent)
                 }
             })
         }

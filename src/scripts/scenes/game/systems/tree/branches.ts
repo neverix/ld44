@@ -108,12 +108,15 @@ export const Branches: System = (jobSystem: JobSystem) => {
                         branch1.rotation = 0
                         branch1.scale[0] = branchImage.width / 3
 
+                        let found = false
                         ecs.all.has("enemy").get("position", "drawable").tracked.forEach(enemy => {
+                            if (found) return
                             const diff = vec2.length(
                                 vec2.sub(vec2.create(), branch2Position, enemy.position))
-                            if (diff <= enemy.drawable.scale[1] * 5) {
+                            if (diff <= enemy.drawable.scale[1] * 4) {
                                 delete ecs.entities[enemy[idKey]]
                                 ecs.emit("entityDeleted", enemy[idKey])
+                                found = true
                             }
                         })
                     }
