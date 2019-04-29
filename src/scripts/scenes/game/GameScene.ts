@@ -12,22 +12,30 @@ import { zindex } from "../../plugins/zindex";
  * the menu scene
  */
 @Scene({
-    template: ({ health }: any) => html`
-        <span id=health>${health}%</span>
+    template: ({ health, score }: any) => html`
+        <span id=health>Hp:${health}% <br> Score: ${score}</span>
         <canvas id=canvas width=1920 height=1080>git gud browser lul</canvas>
     `,
     render,
     name: "game",
-    plugins: [zindex,opacityPlugin,{
+    plugins: [zindex, opacityPlugin, {
         events: {
             start: (_val, data) => {
                 data.instance.started = true
                 const tis: GameScene = data.instance
                 // reset health
-                tis.health = 100
+                tis.health = 1000
                 // create ECS and job system
                 tis.ecs = new ECS()
                 tis.jobSystem = new JobSystem()
+
+                //create game manager
+                tis.ecs
+                    .addEntityFlowGroup()
+                    .addComponent("manager", {
+                        points: 0
+                    })
+
                 // create renderer
                 tis.canvasRenderer = new CanvasRenderer(
                     document.getElementById('canvas') as HTMLCanvasElement)
@@ -100,5 +108,14 @@ export class GameScene {
     defaultArgs = {
         canvasWidth: 600,
         canvasHeight: 400
+    }
+
+    get score() {
+        try {
+            return this.ecs.all.has("manager").get("manager").tracked[0].manager.points
+        }
+        catch (err) {
+            return 0
+        }
     }
 }

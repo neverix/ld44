@@ -124,7 +124,9 @@ export const Branches: System = (jobSystem: JobSystem) => {
                         branch1.scale[0] = branchImage.width / 3
 
                         let found = false
-                        ecs.all.has("enemy").get("position", "drawable").tracked.forEach(enemy => {
+                        ecs.all.has("enemy").get("position", "drawable", "enemy").tracked.forEach(enemy => {
+                            const manager = ecs.all.has("manager").get("manager").tracked[0].manager 
+
                             if (found) return
 
                             const diffCorection = 200
@@ -142,6 +144,13 @@ export const Branches: System = (jobSystem: JobSystem) => {
                                 ecs.entities = obj
                                 ecs.emit("entityDeleted", enemy[idKey])
                                 found = true
+
+                                //increase points
+                                manager.points += enemy.enemy.points
+
+                                // console.log(manager.points)
+                                // move enemy outside screen (if i dont it causes serious bugs after lots of points)
+                                enemy.position[1] = -1000
                             }
                         })
                     }
