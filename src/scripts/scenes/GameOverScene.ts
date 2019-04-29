@@ -12,12 +12,12 @@ import { Scene, ScenePortal, sceneData } from "@eix/ui"
     plugins: [{
         events: {
             start: (_val: boolean, data: sceneData) => {
-                data.instance.started = true
-                data.parent.style.display = "block"
+                // data.instance.started = true
+                data.parent.style.opacity = "1"
             },
             stop: (_val: boolean, data: sceneData) => {
-                data.instance.started = false
-                data.parent.style.display = "none"
+                // data.instance.started = false
+                data.parent.style.opacity = "0"
             }
         }
     }]

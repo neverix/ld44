@@ -4,6 +4,8 @@ import { html, TemplateResult, render } from 'lit-html'
 import { CanvasRenderer, drawableRenderer } from "@eix/gfx"
 import * as MainLoop from "mainloop.js"
 import { systems } from "./systems"
+import { opacityPlugin } from "../../plugins/opacity";
+import { zindex } from "../../plugins/zindex";
 
 
 /**
@@ -16,7 +18,7 @@ import { systems } from "./systems"
     `,
     render,
     name: "game",
-    plugins: [{
+    plugins: [zindex,opacityPlugin,{
         events: {
             start: (_val, data) => {
                 data.instance.started = true
@@ -67,7 +69,8 @@ import { systems } from "./systems"
                         tis.canvasRenderer.clear()
                         tis.canvasRenderer.draw()
                     }).start()
-                data.parent.style.display = "block"
+
+                data.instance.opacity = 1
             },
             stop: (_val, data) => {
                 data.instance.started = false
@@ -76,7 +79,7 @@ import { systems } from "./systems"
                 tis.jobSystem.tasks.stop.runJobs(null)
                 // stop main loop
                 MainLoop.stop()
-                data.parent.style.display = "none"
+                data.instance.opacity = 0
             }
         }
     }]
@@ -84,6 +87,12 @@ import { systems } from "./systems"
 export class GameScene {
     @ScenePortal<number>()
     health: number = 100
+
+    //opacity plugin
+    @ScenePortal<number>()
+    opacity = 0
+    opacitySmoothness = 30
+    defaultDisplay = "block"
 
     jobSystem: JobSystem
     ecs: ECS

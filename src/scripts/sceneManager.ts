@@ -8,16 +8,17 @@ const sceneManager = new SceneManager()
 sceneManager.addScene("game", new GameScene())
 sceneManager.addScene("menu", new MenuScene())
 sceneManager.addScene("gameover", new GameOverScene())
-sceneManager.addScene("screen",new ScreenScene())
+sceneManager.addScene("screen", new ScreenScene())
 
 //show full screen button
 sceneManager.switch("screen")
+// sceneManager.switch("menu")
 
-let currentScene = "menu"
+let currentScene = ""
 //@ts-ignore
 window["loadScene"] = (newScene) => {
     sceneManager.switch(newScene, currentScene)
-    console.log('ye')
+    console.log('ye',newScene)
     currentScene = newScene
 }
 

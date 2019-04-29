@@ -32,9 +32,13 @@ export const EnemySpawner: System = (jobSystem) => {
                 .get("rendererInfo")*/
         return (_delta: number) => {
             if (addEntity) {
+                const type = enemyTypes[random(0, enemyTypes.length, true)]
+                //get images
+                const images = type.images
+
                 //const rendererInfo: RendererInfo = rendererInfoTracker.tracked[0].rendererInfo
                 const enemy = ecs.addEntity()
-                const size = 30
+                const size = 100
                 const position = vec2.fromValues(
                     1920,
                     1080 - random(size, 1080 * 0.4)
@@ -48,11 +52,13 @@ export const EnemySpawner: System = (jobSystem) => {
                             scale: vec2.fromValues(size, size),
                             rotation: 0,
                             drawableContent: {
-                                type: "rect",
-                                color: vec3.fromValues(200, 50, 20)
+                                type: "sprite" ,
+                                image: images[0]
                             }
                         })
-                    .addComponent("enemy", enemyTypes[random(0, enemyTypes.length, true)])
+                    .addComponent("enemy", type)
+                    .addComponent("images",images)
+                    .addComponent("timer",0)
 
                 console.log("added entity")
                 addEntity = false
