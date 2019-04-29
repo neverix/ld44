@@ -23,10 +23,10 @@ export const Branches: System = (jobSystem: JobSystem) => {
         numberKeys.push(keyboardInput)
     }
 
-    const leftKey = new KeyboardInput("left")
-    const rightKey = new KeyboardInput("right")
-    const downKey = new KeyboardInput("down")
-    const upKey = new KeyboardInput("up")
+    const leftKey = new KeyboardInput("left","a")
+    const rightKey = new KeyboardInput("right","d")
+    const downKey = new KeyboardInput("down","s")
+    const upKey = new KeyboardInput("up","w")
     const space = new KeyboardInput("space")
 
     const branches: [ComponentTracker, ComponentTracker][] = []
@@ -80,12 +80,15 @@ export const Branches: System = (jobSystem: JobSystem) => {
                     const branch1 = branchez[0].tracked[0].drawable
                     const branch2 = branchez[1].tracked[0].drawable
 
+                    const maxMomentum = -10
                     if (index == currentBranch) {
+                        const branch_speed = maxMomentum  / branch1.scale[0]
+
                         if (leftKey.value) {
-                            branch1.rotation += 0.01
+                            branch1.rotation += branch_speed
                         }
                         if (rightKey.value) {
-                            branch1.rotation -= 0.01
+                            branch1.rotation -= branch_speed
                         }
                         if (upKey.value) {
                             branch1.scale[0] += 10
