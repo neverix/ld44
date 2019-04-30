@@ -3,7 +3,6 @@ import { ECS, JobSystem, idKey } from "@eix/core";
 import { KeyboardInput } from "@eix/input"
 import { vec2, vec3 } from "gl-matrix";
 import { ComponentTracker } from "@eix/core/dist/ecs/componentTracker";
-import { start } from "repl";
 
 const numberOfBranches = 3
 
@@ -99,14 +98,14 @@ export const Branches: System = (jobSystem: JobSystem) => {
                         }
                         if (rightKey.value) {
                             branch1.rotation = min(branch1.rotation - branch_speed,
-                                (index == 2) ? Math.PI / 6 : maxRotation    
+                                (index == 2) ? Math.PI / 6 : maxRotation
                             )
                         }
                         if (upKey.value) {
-                            branch1.scale[0] = min(maxLength,max(minLength, branch1.scale[0] + 10))
+                            branch1.scale[0] = min(maxLength, max(minLength, branch1.scale[0] + 10))
                         }
                         if (downKey.value) {
-                            branch1.scale[0] = min(maxLength,max(minLength, branch1.scale[0] - 10))
+                            branch1.scale[0] = min(maxLength, max(minLength, branch1.scale[0] - 10))
                         }
                     }
 
@@ -125,7 +124,7 @@ export const Branches: System = (jobSystem: JobSystem) => {
 
                         let found = false
                         ecs.all.has("enemy").get("position", "drawable", "enemy").tracked.forEach(enemy => {
-                            const manager = ecs.all.has("manager").get("manager").tracked[0].manager 
+                            const manager = ecs.all.has("manager").get("manager").tracked[0].manager
 
                             if (found) return
 
@@ -133,7 +132,7 @@ export const Branches: System = (jobSystem: JobSystem) => {
 
                             const diff = vec2.length(
                                 vec2.sub(vec2.create(), branch2Position, enemy.position))
-                            if (diff + diffCorection  <= enemy.drawable.scale[1] * 4) {
+                            if (diff + diffCorection <= enemy.drawable.scale[1] * 4) {
                                 const entities = ecs.entities
                                 let obj: any = {}
 

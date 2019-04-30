@@ -7,10 +7,10 @@ import { ImageScene } from "./scenes/story";
 import { ImageScene2 } from "./scenes/tutorial";
 
 const sceneManager = new SceneManager()
-sceneManager.addScene("story", new ImageScene("/img/untitled.png", "tutorial"))
+sceneManager.addScene("story", new ImageScene("/img/titles/story.png", "tutorial"))
 sceneManager.addScene("game", new GameScene())
 sceneManager.addScene("menu", new MenuScene())
-sceneManager.addScene("tutorial", new ImageScene2("/img/Untitled2.png", "game"))
+sceneManager.addScene("tutorial", new ImageScene2("/img/titles/controls.png", "game"))
 sceneManager.addScene("gameover", new GameOverScene())
 sceneManager.addScene("screen", new ScreenScene())
 

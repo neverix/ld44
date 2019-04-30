@@ -8,12 +8,12 @@ function generateSpeed(old: number, value: number, points: number): number {
     const a = 50
     const b = 30
     const c = 10
-    const d = 2.5 
+    const d = 2.5
 
     //a * 100 - (100 - b) * c = b * ( a - .... )
 
     //!big ecuation
-    const result = old * ((points) ? (points * (100 - b) + b * (a - (100 - b) *  c /b)) * d / 100 : a) / (value * a)
+    const result = old * ((points) ? (points * (100 - b) + b * (a - (100 - b) * c / b)) * d / 100 : a) / (value * a)
 
     console.log({ result, points });
 
@@ -34,12 +34,16 @@ function random(from: number, to: number, floor: boolean = false): number {
 export const EnemySpawner: System = (jobSystem) => {
     let addEntity: boolean
     let interval: number
+    let currentTime = 2400
+    const dec = 50
+    const minTime = 500
+
     jobSystem.tasks.start.addJob("startSpawner", (ecs: ECS) => {
         return () => {
             //@ts-ignore
             interval = setInterval(() => {
                 addEntity = true
-            }, 2400)
+            }, currentTime)
         }
     })
     jobSystem.tasks.update.addJob("spawnEnemies", (ecs: ECS) => {
@@ -83,7 +87,15 @@ export const EnemySpawner: System = (jobSystem) => {
                     .addComponent("mutated", {
                         speed: generateSpeed(Type.speed, Type.points, manager.tracked[0].manager.points)
                     }) //TODO: change name before pushing
-                // console.log("added entity")
+                clearInterval(interval)
+                if (currentTime - dec >= minTime) {
+                    currentTime -= dec
+                    //@ts-ignore
+                    interval = setInterval(() => {
+                        addEntity = true
+                    }, currentTime)
+                }
+
                 addEntity = false
             }
         }

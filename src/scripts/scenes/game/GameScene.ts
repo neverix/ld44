@@ -22,6 +22,8 @@ import { loadAudio } from "../../../scripts/loadStuff";
     plugins: [zindex, opacityPlugin, {
         events: {
             start: (_val, data) => {
+                //@ts-ignore
+                window.e()
                 data.instance.started = true
                 const tis: GameScene = data.instance
                 // reset health

@@ -27,7 +27,7 @@ export const enemyAnimation: System = (js: JobSystem) => {
                     const index = entity.images.indexOf(
                         entity.drawable.drawableContent.image
                     ) + 1
-                    
+
                     //update image
                     entity.drawable.drawableContent.image = entity.images[
                         (index >= entity.images.length) ? 0 : index

@@ -2,6 +2,7 @@ import { html, render } from "lit-html"
 import { Scene, ScenePortal, SceneOptions, sceneData, SceneManager } from "@eix/ui"
 import { opacityPlugin } from "../plugins/opacity";
 import { zindex } from "../plugins/zindex";
+import { loadAudio } from "../loadStuff";
 
 @Scene({
     template: (_target: any) => html`
@@ -17,12 +18,25 @@ import { zindex } from "../plugins/zindex";
         </div>
     `,
     render,
-    name: "menu",   
+    name: "menu",
     plugins: [zindex, opacityPlugin, {
         events: {
             start: (_val: boolean, data: sceneData) => {
                 // data.instance.started = true
                 data.instance.opacity = 1
+
+                //@ts-ignore
+                window.e = () => {
+                    data.instance.music.pause()
+                }
+
+                let moved = false
+                document.body.onmousemove = () => {
+                    if (!moved) {
+                        data.instance.music.play()
+                        moved = true
+                    }
+                }
 
                 console.log("started")
             },
@@ -42,6 +56,8 @@ export class MenuScene {
     opacity = 0
     opacitySmoothness = 30
     defaultDisplay = "flex"
+
+    music = loadAudio("/audio/menu.ogg")
 
     constructor() { }
 
