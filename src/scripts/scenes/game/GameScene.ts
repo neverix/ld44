@@ -119,7 +119,7 @@ export class GameScene {
         canvasHeight: 400
     }
 
-    music = loadAudio("/audio/main.ogg")
+    music = loadAudio(require("../../../../audio/main.ogg"))
 
     get score() {
         try {

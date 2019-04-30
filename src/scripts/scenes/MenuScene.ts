@@ -57,7 +57,7 @@ export class MenuScene {
     opacitySmoothness = 30
     defaultDisplay = "flex"
 
-    music = loadAudio("/audio/menu.ogg")
+    music = loadAudio(require("../../../audio/menu.ogg"))
 
     constructor() { }
 

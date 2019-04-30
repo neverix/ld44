@@ -39,39 +39,41 @@ export const Branches: System = (jobSystem: JobSystem) => {
 
     jobSystem.tasks.start.addJob("branches", (ecs: ECS) => {
         return (_e) => {
-            branchImage.src = require("../../../../../../img/branch/branch.png")
-            branchImage2.src = require("../../../../../../img/branch/branch2.png")
             branchImage.onload = () => {
-                for (let i = 0; i < numberOfBranches; i++) {
-                    const startPosition = vec2.fromValues(100, 1080 / numberOfBranches * i)
-                    startPositions.push(startPosition)
-                    branches.push([
-                        ecs.addEntityFlowGroup()
-                            .addComponent("drawable", {
-                                layer: 2,
-                                position: startPosition,
-                                rotation: 0,
-                                scale: vec2.fromValues(branchImage.width / 3, branchImage.height / 3),
-                                drawableContent: {
-                                    type: "sprite",
-                                    image: branchImage
-                                }
-                            })
-                            .get("drawable"),
-                        ecs.addEntityFlowGroup()
-                            .addComponent("drawable", {
-                                layer: 2,
-                                position: startPosition,
-                                rotation: 0,
-                                scale: vec2.fromValues(branchImage2.width / 3, branchImage2.height / 3),
-                                drawableContent: {
-                                    type: "sprite",
-                                    image: branchImage2
-                                }
-                            })
-                            .get("drawable")])
+                branchImage2.onload = () => {
+                    for (let i = 0; i < numberOfBranches; i++) {
+                        const startPosition = vec2.fromValues(100, 1080 / numberOfBranches * i)
+                        startPositions.push(startPosition)
+                        branches.push([
+                            ecs.addEntityFlowGroup()
+                                .addComponent("drawable", {
+                                    layer: 2,
+                                    position: startPosition,
+                                    rotation: 0,
+                                    scale: vec2.fromValues(branchImage.width / 3, branchImage.height / 3),
+                                    drawableContent: {
+                                        type: "sprite",
+                                        image: branchImage
+                                    }
+                                })
+                                .get("drawable"),
+                            ecs.addEntityFlowGroup()
+                                .addComponent("drawable", {
+                                    layer: 2,
+                                    position: startPosition,
+                                    rotation: 0,
+                                    scale: vec2.fromValues(branchImage2.width / 3, branchImage2.height / 3),
+                                    drawableContent: {
+                                        type: "sprite",
+                                        image: branchImage2
+                                    }
+                                })
+                                .get("drawable")])
+                    }
                 }
             }
+            branchImage.src = require("../../../../../../img/branch/branch.png")
+            branchImage2.src = require("../../../../../../img/branch/branch2.png")
         }
     })
 

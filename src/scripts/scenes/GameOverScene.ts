@@ -53,7 +53,7 @@ export class GameOverScene {
     defaultDisplay = "flex"
 
 
-    audio = loadAudio("/audio/sad.ogg")
+    audio = loadAudio(require("../../../audio/sad.ogg"))
 
     constructor() { }
 }

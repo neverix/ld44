@@ -18,7 +18,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|mp3|wav|jpg)$/,
+                test: /\.(png|mp3|wav|jpg|ogg|ttf)$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -30,7 +30,19 @@ module.exports = {
                 test: /\.(scss|sass)$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader']
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {}
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true,
+                                sourceMapContents: false
+                            }
+                        }
+                    ]
                 })
             },
             {
