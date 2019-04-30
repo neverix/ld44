@@ -46,60 +46,67 @@ export const EnemySpawner: System = (jobSystem) => {
             }, currentTime)
         }
     })
-    jobSystem.tasks.update.addJob("spawnEnemies", (ecs: ECS) => {
-        //manager
-        const manager = ecs.all.has("manager").get("manager")
-        console.log(manager.tracked[0].manager.points)
 
-        /*const rendererInfoTracker: ComponentTracker =
-            ecs.all
-                .has("rendererInfo")
-                .get("rendererInfo")*/
-        return (_delta: number) => {
-            if (addEntity) {
-                let Type = enemyTypes[random(0, enemyTypes.length, true)]
-                //get images
-                const images = Type.images
+    // hack
+    let Type = enemyTypes[0]
+    //get images
+    const imagesPromise = Type.images
 
-                //const rendererInfo: RendererInfo = rendererInfoTracker.tracked[0].rendererInfo
-                const enemy = ecs.addEntity()
-                const size = 100
-                const position = vec2.fromValues(
-                    1920,
-                    1080 - random(size, 1080 * 0.4)
-                )
-                ecs.all.is(enemy)
-                    .addComponent("position", position)
-                    .addComponent("drawable",
-                        {
-                            layer: 1,
-                            position,
-                            scale: vec2.fromValues(size, size),
-                            rotation: 0,
-                            drawableContent: {
-                                type: "sprite",
-                                image: images[0]
-                            }
-                        })
-                    .addComponent("enemy", Type)
-                    .addComponent("images", images)
-                    .addComponent("timer", { time: 0 })
-                    .addComponent("mutated", {
-                        speed: generateSpeed(Type.speed, Type.points, manager.tracked[0].manager.points)
-                    }) //TODO: change name before pushing
-                clearInterval(interval)
-                if (currentTime - dec >= minTime) {
-                    currentTime -= dec
-                    //@ts-ignore
-                    interval = setInterval(() => {
-                        addEntity = true
-                    }, currentTime)
+    Promise.all(imagesPromise).then((newImgs) => {
+        const images = newImgs
+
+        jobSystem.tasks.update.addJob("spawnEnemies", (ecs: ECS) => {
+            //manager
+            const manager = ecs.all.has("manager").get("manager")
+            console.log(manager.tracked[0].manager.points)
+
+            /*const rendererInfoTracker: ComponentTracker =
+                ecs.all
+                    .has("rendererInfo")
+                    .get("rendererInfo")*/
+            return (_delta: number) => {
+                if (addEntity) {
+                    //const rendererInfo: RendererInfo = rendererInfoTracker.tracked[0].rendererInfo
+                    const enemy = ecs.addEntity()
+                    const size = 100
+                    const position = vec2.fromValues(
+                        1920,
+                        1080 - random(size, 1080 * 0.4)
+                    )
+                    ecs.all.is(enemy)
+                        .addComponent("position", position)
+                        .addComponent("drawable",
+                            {
+                                layer: 1,
+                                position,
+                                scale: vec2.fromValues(size, size),
+                                rotation: 0,
+                                drawableContent: {
+                                    type: "sprite",
+                                    image: images[0]
+                                }
+                            })
+                        .addComponent("enemy", Type)
+                        .addComponent("images", images)
+                        .addComponent("timer", { time: 0 })
+                        .addComponent("mutated", {
+                            speed: generateSpeed(Type.speed, Type.points, manager.tracked[0].manager.points)
+                        }) //TODO: change name before pushing
+                    clearInterval(interval)
+                    if (currentTime - dec >= minTime) {
+                        currentTime -= dec
+                        //@ts-ignore
+                        interval = setInterval(() => {
+                            addEntity = true
+                        }, currentTime)
+                    }
+
+                    addEntity = false
                 }
-
-                addEntity = false
             }
-        }
+        })
     })
+
     jobSystem.tasks.stop.addJob("stopSpawner", () => {
         return () => {
             clearInterval(interval)

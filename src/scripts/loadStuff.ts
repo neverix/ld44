@@ -1,4 +1,4 @@
-export const loadImage = (url:string) => {
+export const loadImage = (url: string) => {
     //create instance
     const img = new Image()
 
@@ -6,10 +6,14 @@ export const loadImage = (url:string) => {
     img.src = url
 
     //return the result
-    return img
+    return new Promise((res: (h: HTMLImageElement) => void) => {
+        img.onload = () => {
+            res(img)
+        }
+    })
 }
 
-export const loadAudio = (url:string) => {
+export const loadAudio = (url: string) => {
     //create instace
     const audio = new Audio(url)
 

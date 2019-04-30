@@ -5,7 +5,7 @@ interface EnemyType {
     strength: number
     speed: number
     health: number
-    images: HTMLImageElement[]
+    images: Promise<HTMLImageElement>[]
     fps: number
     points: number
 }
@@ -17,9 +17,9 @@ const enemyTypes: EnemyType[] = [
         health: 1,
         speed: 40,
         images: [
-            loadImage("/img/enemy1/enemy1.png"),
-            loadImage("/img/enemy1/enemy2.png"),
-            loadImage("/img/enemy1/enemy3.png")
+            loadImage(require("../../../../../../img/enemy1/enemy1.png")),
+            loadImage(require("../../../../../../img/enemy1/enemy2.png")),
+            loadImage(require("../../../../../../img/enemy1/enemy3.png"))
         ],
         fps: 10,
         points: 10
